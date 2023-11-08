@@ -1,7 +1,7 @@
 import streamlit as st
 import torch
 from transformers import CLIPProcessor, CLIPModel
-from PIL import Image
+from PIL import Image  # Import the Image module from PIL
 
 # Load the CLIP model and processor
 processor = CLIPProcessor.from_pretrained("openai/clip-vit-base-patch16")
@@ -22,10 +22,10 @@ if uploaded_image:
     # Generate captions when a button is clicked
     if st.button("Generate Caption"):
         # Read and preprocess the uploaded image
-        image = Image.open(uploaded_image)
+        image = Image.open(uploaded_image)  # Open the uploaded image
 
         # Generate a caption for the image
-        inputs = processor(text="a photo of a " + st.text_input("Describe the image:", "cat"), images=image, return_tensors="pt")
+        inputs = processor(text="a photo of a " + st.text_input("Describe the image:", "flower"), images=image, return_tensors="pt")
         outputs = model(**inputs)
         logits_per_image = outputs.logits_per_image
         probs = logits_per_image.softmax(1)

@@ -34,3 +34,22 @@ if st.button("Submit"):
     # Get the chatbot's response
     response = chatbot_response(user_input)
     st.text("Chatbot: " + response)
+
+# Additional functionality: Option to clear the chat history
+if st.button("Clear Chat"):
+    st.text("Chatbot: Chat history cleared.")
+    st.session_state.chat_history = []
+
+# Store chat history in a session state
+if "chat_history" not in st.session_state:
+    st.session_state.chat_history = []
+
+# Display chat history
+st.write("Chat History:")
+for message in st.session_state.chat_history:
+    st.write(message)
+
+# Append user and chatbot messages to the chat history
+if user_input:
+    st.session_state.chat_history.append("You: " + user_input)
+    st.session_state.chat_history.append("Chatbot: " + response)
